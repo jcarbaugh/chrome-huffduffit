@@ -8,7 +8,7 @@
 				font-family: Baskerville,Garamond,'Adobe Caslon Pro',Palatino,'Times New Roman',Georgia,serif;
 				margin: 0;
 				padding: 0;
-				height: 460px;
+				height: 480px;
 				width: 400px;
 			}
 			iframe { border: 0; height: 100%; width: 100%;}
@@ -73,9 +73,8 @@
 			};
 			
 			var showPopUp = function(file, tab) {
-				if (!file.title) {
-					file.title = tab.title;
-				}
+				if (!file.title) file.title = tab.title;
+				if (!file.description) file.description = 'Huffduffed from ' + tab.url;
 				var iframeElem = document.createElement('iframe');
 				iframeElem.src = huffdufferUrl(file);
 				iframeElem.frameborder = '0';
