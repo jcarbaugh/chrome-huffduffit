@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			* { margin: 0; padding: 0; }
+			body {
+				background-color: #FCFCF9;
+				font-family: Baskerville,Garamond,'Adobe Caslon Pro',Palatino,'Times New Roman',Georgia,serif;
+				margin: 0;
+				padding: 0;
+				height: 460px;
+				width: 400px;
+			}
+			iframe { border: 0; height: 100%; width: 100%;}
+			ul { border-top: 6px #224466 solid; list-style: none; }
+			ul li { padding: 1em 0.5em; }
+			a:link, a:visited { color: #456789; }
+		</style>
+		<script>
+		
+			var clearContainer = function() {
+				var elem = document.getElementById('container');
+				var children = elem.childNodes;
+				for (var i = 0; i < children.length; i++) {
+					elem.removeChild(children[i]);
+				}
+			};
+		
+			var queryString = function(params) {
+			    var components = [];
+			    for (key in params) {
+					var value = params[key];
+					if (value) {
+				        components.push('bookmark[' + key + ']=' + encodeURIComponent(value));
+					}
+			    }
+			    return components.join('&');
+			};
+
+			var huffdufferUrl = function(params) {
+				var qs = queryString(params);
+			    var url = "http://huffduffer.com/add?popup=true&" + qs;
+				console.log(url);
+				return url;
+			};
+			
+			var init = function() {
+				clearContainer();
+				var bg = chrome.extension.getBackgroundPage();
+				chrome.tabs.getSelected(null, function(tab) {
+					var media = bg.availableAudio[tab.id];
+					if (media.length == 1) {
+						showPopUp(media[0], tab);
+					} else {
+						var ulElem = document.createElement('ul');
+						for (var i = 0; i < media.length; i++) {
+							var file = media[i];
+							var aElem = document.createElement('a');
+							aElem.href = file.url;
+							aElem.appendChild(document.createTextNode(file.title || file.url));
+							aElem.onclick = function() {
+								clearContainer();
+								showPopUp(file, tab);
+								return false;
+							};
+							var liElem = document.createElement('li');
+							liElem.appendChild(aElem);
+							ulElem.appendChild(liElem);
+						}
+						document.getElementById('container').appendChild(ulElem);
+					}
+				});	
+			};
+			
+			var showPopUp = function(file, tab) {
+				if (!file.title) {
+					file.title = tab.title;
+				}
+				var iframeElem = document.createElement('iframe');
+				iframeElem.src = huffdufferUrl(file);
+				iframeElem.frameborder = '0';
+				document.getElementById('container').appendChild(iframeElem);
+			};
+			
+		</script>
+	</head>
+	<body onload="init();">
+		<div id="container"></div>
+	</body>
+</html>

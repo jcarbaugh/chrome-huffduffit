@@ -1,0 +1,29 @@
+{
+    "name": "Huffduff it!",
+    "version": "1.0",
+    "description": "Add audio file to your Huffduffer feed.",
+    "background_page" : "background.html",
+    "permissions": ["tabs"],
+    "page_action": {
+        "default_icon": "icons/huffduffer-24x24.png",
+        "default_title": "Huffduff it!",
+        "popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "js": ["contentscript.js"],
+            "run_at": "document_idle",
+            "all_frames": false
+        }
+    ],
+    "icons": {
+        "16": "icons/huffduffer-16x16.png",
+        "24": "icons/huffduffer-24x24.png",
+        "32": "icons/huffduffer-32x32.png",
+        "48": "icons/huffduffer-48x48.png"
+    }
+}
