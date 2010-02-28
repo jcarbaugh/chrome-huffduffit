@@ -14,28 +14,37 @@ var scrapeATags = function(media) {
     }
 };
 
-var scrapeAudioTags = function(media) {
-//     var media;
+// var scrapeAudioTags = function(media) {
 //     var elems = document.getElementsByTagName('audio');
 //     for (var i = 0; i < elems.length; i++) {
 //         var elem = elems[i];
 //         var file = {
-//             title: (elem.title) ? elem.title : null;
+//             title: (elem.title) ? elem.title : null
 //         };
 //         if (elem.src) {
-//             file.url = elem.src;
+//             if (regex.test(elem.href)) {
+//                 file.url = elem.src;
+//             }
 //         } else {
-//             // parse individual sources
-//             file.url = null;
+//             var sources = elem.getElementsByTagName('source');
+//             for (var i = 0; i < sources.length; i++) {
+//                 var source = sources[i];
+//                 if (regex.test(source.href)) {
+//                     file.url = source.href;
+//                     break;
+//                 }
+//             }
 //         }
-//         media.push(file);
+//         if (file.url) {
+//             media.push(file);
+//         }
 //     }
-}
+// };
 
 var getAudio = function() {
     var media = [];
     scrapeATags(media);
-    scrapeAudioTags(media);
+    // scrapeAudioTags(media);
     return media;
 };
 
