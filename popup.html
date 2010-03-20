@@ -14,7 +14,16 @@
 			iframe { border: 0; height: 100%; width: 100%;}
 			ul { border-top: 6px #224466 solid; list-style: none; }
 			ul li { padding: 1em 0.5em; }
-			a:link, a:visited { color: #456789; }
+			ul li a {
+				color: #456789;
+				font-size: 21px;
+				text-decoration: none;
+			}
+			ul li a:hover { background-color: #456789; color: #fff; }
+			ul li span.url {
+				display: block;
+				font-size: 14px;
+			}
 		</style>
 		<script>
 		
@@ -57,7 +66,7 @@
 							var file = media[i];
 							var aElem = document.createElement('a');
 							aElem.href = file.url;
-							aElem.appendChild(document.createTextNode(file.title || file.url));
+							aElem.appendChild(document.createTextNode(file.content || file.title));
 							aElem.onclick = function() {
 								clearContainer();
 								showPopUp(file, tab);
@@ -65,6 +74,10 @@
 							};
 							var liElem = document.createElement('li');
 							liElem.appendChild(aElem);
+							var spanElem = document.createElement('span');
+							spanElem.className = 'url';
+							spanElem.appendChild(document.createTextNode(file.url));
+							liElem.appendChild(spanElem);
 							ulElem.appendChild(liElem);
 						}
 						document.getElementById('container').appendChild(ulElem);
@@ -73,7 +86,7 @@
 			};
 			
 			var showPopUp = function(file, tab) {
-				if (!file.title) file.title = tab.title;
+				if (!file.title) file.title = file.content || tab.title;
 				if (!file.description) file.description = 'Huffduffed from ' + tab.url;
 				var iframeElem = document.createElement('iframe');
 				iframeElem.src = huffdufferUrl(file);
