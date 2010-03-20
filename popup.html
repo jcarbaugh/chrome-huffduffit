@@ -66,7 +66,7 @@
 							var file = media[i];
 							var aElem = document.createElement('a');
 							aElem.href = file.url;
-							aElem.appendChild(document.createTextNode(file.content || file.title));
+							aElem.appendChild(document.createTextNode(file.content || file.title || tab.title));
 							aElem.onclick = function() {
 								clearContainer();
 								showPopUp(file, tab);
