@@ -1,4 +1,4 @@
-var regex = /\.mp3/;
+var regex = /\.(aac|m(idi|p3|4a)|ogg|pcm|wav)/i;
 
 var scrapeATags = function(media) {
     var elems = document.getElementsByTagName('a');
@@ -7,7 +7,8 @@ var scrapeATags = function(media) {
         if (regex.test(elem.href)) {
             var file = {
                 url: elem.href,
-                title: (elem.title) ? elem.title : null
+                title: (elem.title) ? elem.title : null,
+                content: elem.innerText
             };
             media.push(file);
         }
