@@ -1,12 +1,12 @@
 {
-    "name": "Huffduff it!",
-    "version": "1.0",
-    "description": "Add audio file to your Huffduffer feed.",
+    "name": "Huffduff it",
+    "version": "0.1",
+    "description": "Add audio files to your Huffduffer feed.",
     "background_page" : "background.html",
     "permissions": ["tabs"],
     "page_action": {
         "default_icon": "icons/huffduffer-24x24.png",
-        "default_title": "Huffduff it!",
+        "default_title": "Huffduff it",
         "popup": "popup.html"
     },
     "content_scripts": [
